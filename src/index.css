@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+  body {
+    @apply antialiased;
+  }
+  ::selection {
+    @apply bg-brand/30;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-surface-darkBorder rounded-full;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl2 border bg-white border-surface-lightBorder dark:bg-surface-darkCard dark:border-surface-darkBorder;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl2 bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl2 border border-surface-lightBorder bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-surface-darkBorder dark:bg-surface-darkCard dark:text-slate-200 dark:hover:bg-white/5;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl2 px-3 py-2 text-sm font-medium text-slate-500 transition-colors hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/5;
+  }
+  .input {
+    @apply w-full rounded-xl2 border border-surface-lightBorder bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-brand dark:border-surface-darkBorder dark:bg-surface-dark dark:text-slate-100;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium text-slate-500 dark:text-slate-400;
+  }
+}
