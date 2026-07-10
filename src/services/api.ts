@@ -33,7 +33,7 @@ export const api = {
   getDashboard: (householdId: string, memberId: string) =>
     request(`/households/${householdId}/dashboard?memberId=${memberId}`),
 
-  listDebts: (householdId: string) => request(`/households/${householdId}/debts`),
+  listDebts: (householdId: string, memberId: string) => request(`/households/${householdId}/debts?memberId=${memberId}`),
   createDebt: (householdId: string, payload: unknown) =>
     request(`/households/${householdId}/debts`, { method: "POST", body: JSON.stringify(payload) }),
   updateDebt: (householdId: string, debtId: string, payload: unknown) =>
@@ -45,7 +45,8 @@ export const api = {
   closeDebtEarly: (householdId: string, debtId: string) =>
     request(`/households/${householdId}/debts/${debtId}/close-early`, { method: "POST" }),
 
-  listCreditCards: (householdId: string) => request(`/households/${householdId}/credit-cards`),
+  listCreditCards: (householdId: string, memberId: string) =>
+    request(`/households/${householdId}/credit-cards?memberId=${memberId}`),
   createCreditCard: (householdId: string, payload: unknown) =>
     request(`/households/${householdId}/credit-cards`, { method: "POST", body: JSON.stringify(payload) }),
   updateCreditCard: (householdId: string, cardId: string, payload: unknown) =>
@@ -61,7 +62,7 @@ export const api = {
   recordEmiPayment: (householdId: string, emiId: string) =>
     request(`/households/${householdId}/credit-cards/emis/${emiId}/payments`, { method: "POST" }),
 
-  listBuckets: (householdId: string) => request(`/households/${householdId}/buckets`),
+  listBuckets: (householdId: string, memberId: string) => request(`/households/${householdId}/buckets?memberId=${memberId}`),
   createBucket: (householdId: string, payload: unknown) =>
     request(`/households/${householdId}/buckets`, { method: "POST", body: JSON.stringify(payload) }),
   updateBucket: (householdId: string, bucketId: string, payload: unknown) =>
@@ -83,7 +84,7 @@ export const api = {
   allocateFreedMoney: (householdId: string, payload: unknown) =>
     request(`/households/${householdId}/buckets/allocate-freed-money`, { method: "POST", body: JSON.stringify(payload) }),
 
-  listExpenses: (householdId: string) => request(`/households/${householdId}/expenses`),
+  listExpenses: (householdId: string, memberId: string) => request(`/households/${householdId}/expenses?memberId=${memberId}`),
   createExpense: (householdId: string, payload: unknown) =>
     request(`/households/${householdId}/expenses`, { method: "POST", body: JSON.stringify(payload) }),
   updateExpense: (householdId: string, expenseId: string, payload: unknown) =>

@@ -3,10 +3,10 @@ import { api } from "../services/api";
 import { useHouseholdStore } from "../store/useHouseholdStore";
 
 export function useDebts() {
-  const householdId = useHouseholdStore((s) => s.householdId);
+  const { householdId, activeMemberId } = useHouseholdStore();
   return useQuery({
-    queryKey: ["debts", householdId],
-    queryFn: () => api.listDebts(householdId!),
+    queryKey: ["debts", householdId, activeMemberId],
+    queryFn: () => api.listDebts(householdId!, activeMemberId),
     enabled: !!householdId,
   });
 }

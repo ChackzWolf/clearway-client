@@ -3,10 +3,10 @@ import { api } from "../services/api";
 import { useHouseholdStore } from "../store/useHouseholdStore";
 
 export function useBuckets() {
-  const householdId = useHouseholdStore((s) => s.householdId);
+  const { householdId, activeMemberId } = useHouseholdStore();
   return useQuery({
-    queryKey: ["buckets", householdId],
-    queryFn: () => api.listBuckets(householdId!),
+    queryKey: ["buckets", householdId, activeMemberId],
+    queryFn: () => api.listBuckets(householdId!, activeMemberId),
     enabled: !!householdId,
   });
 }
