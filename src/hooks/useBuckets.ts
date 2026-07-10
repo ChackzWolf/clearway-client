@@ -43,6 +43,15 @@ export function useDeleteBucket() {
   });
 }
 
+export function useReorderBuckets() {
+  const householdId = useHouseholdStore((s) => s.householdId);
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (orderedIds: string[]) => api.reorderBuckets(householdId!, orderedIds),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["buckets"] }),
+  });
+}
+
 export function useContributeBucket() {
   const householdId = useHouseholdStore((s) => s.householdId);
   const queryClient = useQueryClient();

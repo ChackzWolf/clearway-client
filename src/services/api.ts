@@ -68,6 +68,8 @@ export const api = {
     request(`/households/${householdId}/buckets/${bucketId}`, { method: "PATCH", body: JSON.stringify(payload) }),
   deleteBucket: (householdId: string, bucketId: string) =>
     request(`/households/${householdId}/buckets/${bucketId}`, { method: "DELETE" }),
+  reorderBuckets: (householdId: string, orderedIds: string[]) =>
+    request(`/households/${householdId}/buckets/reorder`, { method: "POST", body: JSON.stringify({ orderedIds }) }),
   contributeBucket: (householdId: string, bucketId: string, payload: { amount: number; note?: string }) =>
     request(`/households/${householdId}/buckets/${bucketId}/contributions`, { method: "POST", body: JSON.stringify(payload) }),
   addBucketLink: (householdId: string, bucketId: string, payload: { url: string; label?: string | null; price?: number | null }) =>
