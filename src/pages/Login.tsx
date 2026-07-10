@@ -10,6 +10,7 @@ export default function Login() {
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [signedUp, setSignedUp] = useState(false);
@@ -20,11 +21,19 @@ export default function Login() {
     setError(null);
     setSignedUp(false);
     setResetSent(false);
+    setPassword("");
+    setConfirmPassword("");
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    if (mode === "signup" && password !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+
     setLoading(true);
     try {
       if (mode === "forgot") {
@@ -103,6 +112,21 @@ export default function Login() {
                     Forgot password?
                   </button>
                 )}
+              </div>
+            )}
+
+            {mode === "signup" && (
+              <div>
+                <label className="label">Confirm password</label>
+                <input
+                  className="input"
+                  type="password"
+                  required
+                  minLength={6}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="••••••••"
+                />
               </div>
             )}
 
