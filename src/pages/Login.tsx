@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Wallet, Loader2 } from "lucide-react";
 import { signIn, signUp, requestPasswordReset } from "../services/supabaseClient";
+import { InstallButton } from "../components/InstallButton";
 
 type Mode = "signin" | "signup" | "forgot";
 
@@ -53,7 +54,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-surface-light px-4 dark:bg-surface-dark">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-surface-light px-4 dark:bg-surface-dark">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -172,6 +173,8 @@ export default function Login() {
           </p>
         )}
       </motion.div>
+
+      <InstallButton className="btn-ghost !mt-4 mx-auto text-slate-500 dark:text-slate-400" />
     </div>
   );
 }
