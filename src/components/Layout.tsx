@@ -13,8 +13,12 @@ import {
   LogOut,
   Wallet,
   MoreHorizontal,
+  Download,
+  Share,
+  SquarePlus,
 } from "lucide-react";
 import { useTheme } from "../hooks/useTheme";
+import { usePwaInstall } from "../hooks/usePwaInstall";
 import { useAuth } from "../context/AuthContext";
 import { MemberSwitcher } from "./MemberSwitcher";
 import { Modal } from "./Modal";
@@ -60,6 +64,54 @@ function NavItems({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
+function InstallButton({ className = "" }: { className?: string }) {
+  const { canInstall, canPromptNatively, canShowIosSteps, promptInstall } = usePwaInstall();
+  const [showIosSteps, setShowIosSteps] = useState(false);
+
+  if (!canInstall) return null;
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={canPromptNatively ? promptInstall : () => setShowIosSteps(true)}
+        className={className}
+      >
+        <Download size={18} />
+        Install app
+      </button>
+
+      {canShowIosSteps && (
+        <Modal open={showIosSteps} onClose={() => setShowIosSteps(false)} title="Install Clearway">
+          <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
+            Add Clearway to your Home Screen for a full-screen, app-like experience.
+          </p>
+          <ol className="space-y-3 text-sm text-slate-700 dark:text-slate-200">
+            <li className="flex items-center gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand/10 font-semibold text-brand">
+                1
+              </span>
+              Tap the <Share size={16} className="inline text-brand" /> Share icon in Safari's toolbar
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand/10 font-semibold text-brand">
+                2
+              </span>
+              Scroll down and tap <SquarePlus size={16} className="inline text-brand" /> "Add to Home Screen"
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand/10 font-semibold text-brand">
+                3
+              </span>
+              Tap "Add" — Clearway will appear on your Home Screen
+            </li>
+          </ol>
+        </Modal>
+      )}
+    </>
+  );
+}
+
 export function Layout() {
   const { isDark, toggle } = useTheme();
   const { signOut } = useAuth();
@@ -79,6 +131,7 @@ export function Layout() {
         <nav className="flex flex-1 flex-col gap-1">
           <NavItems />
         </nav>
+        <InstallButton className="btn-ghost justify-start" />
         <button onClick={toggle} className="btn-ghost justify-start">
           {isDark ? <Sun size={18} /> : <Moon size={18} />}
           {isDark ? "Light mode" : "Dark mode"}
@@ -99,6 +152,7 @@ export function Layout() {
             <span className="font-semibold text-slate-900 dark:text-white">Clearway</span>
           </div>
           <MemberSwitcher />
+          <InstallButton className="btn-ghost !gap-1.5 !px-2.5 text-xs lg:hidden" />
         </header>
 
         <main className="flex-1 px-4 pb-24 pt-4 lg:px-8 lg:pb-8 lg:pt-6">
@@ -158,6 +212,7 @@ export function Layout() {
           ))}
         </div>
         <div className="my-3 border-t border-surface-lightBorder dark:border-surface-darkBorder" />
+        <InstallButton className="btn-ghost w-full justify-start" />
         <button onClick={toggle} className="btn-ghost w-full justify-start">
           {isDark ? <Sun size={18} /> : <Moon size={18} />}
           {isDark ? "Light mode" : "Dark mode"}
